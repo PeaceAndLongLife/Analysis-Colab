@@ -1,6 +1,5 @@
 import pandas as pd
-import ast
-import json
+from data_scrub import parse_messages
 
 def process_messages(c_df, t_df):
 
@@ -42,18 +41,7 @@ def process_messages(c_df, t_df):
     ###
 
     # Function to parse message strings into list of dictionaries
-    def parse_messages(message_string):
-        import json as json_lib  # local import to avoid free variable issues
-        import ast
-        if pd.isna(message_string) or message_string == '[]':
-            return []
-        try:
-            return json_lib.loads(message_string)
-        except json_lib.JSONDecodeError:
-            try:
-                return ast.literal_eval(message_string)
-            except (ValueError, SyntaxError):
-                return [] # Return empty list if parsing fails
+
 
     # Apply the parsing function to the 'all_messages' column
     combined_df['all_messages'] = combined_df['all_messages'].apply(parse_messages)
