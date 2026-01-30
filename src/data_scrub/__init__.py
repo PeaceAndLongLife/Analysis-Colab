@@ -1,2 +1,3 @@
 from .remove_staff import remove_staff
 from .explode_json_messsages import explode_json_messages
+from process_messages import process_messages

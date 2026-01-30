@@ -16,7 +16,7 @@
     #           'mptl_user_10@pdx.edu'
 
 
-from ipywidgets import display
+from IPython.display import display
 
 def remove_staff(u_df, 
                  t_df,
