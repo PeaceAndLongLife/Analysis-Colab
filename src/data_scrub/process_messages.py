@@ -1,5 +1,6 @@
 import pandas as pd
 from data_scrub import parse_messages
+import json
 
 def process_messages(c_df, t_df):
 
