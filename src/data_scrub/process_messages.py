@@ -43,12 +43,13 @@ def process_messages(c_df, t_df):
 
     # Function to parse message strings into list of dictionaries
     def parse_messages(message_string):
-
+        import json as json_lib  # local import to avoid free variable issues
+        import ast
         if pd.isna(message_string) or message_string == '[]':
             return []
         try:
-            return json.loads(message_string)
-        except json.JSONDecodeError:
+            return json_lib.loads(message_string)
+        except json_lib.JSONDecodeError:
             try:
                 return ast.literal_eval(message_string)
             except (ValueError, SyntaxError):
