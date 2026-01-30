@@ -1,5 +1,4 @@
 import pandas as pd
-import re
 import ast
 import json
 
@@ -44,6 +43,7 @@ def process_messages(c_df, t_df):
 
     # Function to parse message strings into list of dictionaries
     def parse_messages(message_string):
+
         if pd.isna(message_string) or message_string == '[]':
             return []
         try:
@@ -60,7 +60,6 @@ def process_messages(c_df, t_df):
     # Count message objects in 'all_messages' and add to 'interactions' column
     combined_df['interactions'] = combined_df['all_messages'].apply(len)
 
-    import json
     combined_df = combined_df[combined_df['all_messages'].apply(lambda x: len(x) > 0)]
 
     print("Combined DataFrame with split question columns and interactions:")
