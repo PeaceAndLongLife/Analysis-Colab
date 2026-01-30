@@ -1,5 +1,5 @@
 from GoogleFunctions import GoogleDocumentManager
-from ipywidgets import display
+from IPython.display import display
 
 def read_csv_from_id(
         SERVICE_ACCOUNT_FILE, 
