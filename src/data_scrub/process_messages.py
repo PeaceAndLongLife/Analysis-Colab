@@ -36,22 +36,7 @@ def process_messages(c_df, t_df):
     combined_df['question'] = 'Lab ' + combined_df['lab_number'] + '-Q' + combined_df['question_number']
 
     print(' Question Data parsed and updated.')
-
-    ####
-    # Convert the JSON format to lists of dicts
-    ###
-
-    # Function to parse message strings into list of dictionaries
-
-
-    # Apply the parsing function to the 'all_messages' column
-    combined_df['all_messages'] = combined_df['all_messages'].apply(parse_messages)
-
-    # Count message objects in 'all_messages' and add to 'interactions' column
-    combined_df['interactions'] = combined_df['all_messages'].apply(len)
-
-    combined_df = combined_df[combined_df['all_messages'].apply(lambda x: len(x) > 0)]
-
-    print("Combined DataFrame with split question columns and interactions:")
-    # display(combined_df.head())
+    
     return combined_df
+
+ 
