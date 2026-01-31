@@ -3,7 +3,7 @@ import ast
 import pandas as pd
 
 def parse_messages(message_string):
-    print(f"message string is: _{message_string}_")
+    # print(f"message string is: _{message_string}_")
 
     if pd.isna(message_string) or message_string == '[]' or message_string == " ":
         return []
