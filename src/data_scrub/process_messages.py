@@ -33,8 +33,11 @@ def process_messages(
         combined_df[num_col] = pd.to_numeric(combined_df[num_col])
         combined_df[num_col] = combined_df[num_col].astype(int).astype(str).str.zfill(2)
 
-    # Replace the 'question' column with the new formatted string
-    combined_df['question'] = 'Lab ' + combined_df['lab_number'] + '-Q' + combined_df['question_number']
+    # Replace the 'pattern_col' column with the new formatted string
+    if pattern_col == 'question' and 'Course' in combined_df.columns and 'lab_number' in combined_df.columns and 'question_number' in combined_df.columns:
+        combined_df[pattern_col] = combined_df['Course'] + ' - Lab ' + combined_df['lab_number'] + '-Q' + combined_df['question_number']
+    elif pattern_col == 'Assignment' and 'Course' in combined_df.columns and 'lab_number' in combined_df.columns:
+        combined_df[pattern_col] = 'Course'+ combined_df['Course'], 'Lab ' + combined_df['lab_number']
 
     print(' Question Data parsed and updated.')
     
