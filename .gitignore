@@ -208,3 +208,4 @@ __marimo__/
 
 # secret
 secret.py
+service_account.json
