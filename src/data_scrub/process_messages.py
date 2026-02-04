@@ -2,7 +2,14 @@ import pandas as pd
 from data_scrub import parse_messages
 import json
 
-def process_messages(c_df, t_df):
+def process_messages(
+        c_df, 
+        t_df,
+        pattern_col = 'question',
+        pattern = r"(.+) - Assignment (\d+) Question (\d+) - (.+)", # regex pattern to capture the components
+        new_columns = ['Course', 'lab_number', 'question_number', 'question_text'],
+        new_numeric_columns = ['lab_number', 'question_number']
+        ):
 
     ####
     # Merge consent into transcript
@@ -15,22 +22,16 @@ def process_messages(c_df, t_df):
 
     ####
     # Split up question column
-    ###
-
-    # Define the regex pattern to capture the components
-    pattern = r"(.+) - Assignment (\d+) Question (\d+) - (.+)"
+    ###    
 
     # Apply the regex to the 'question' column and create new columns
-    combined_df[['Course', 'lab_number', 'question_number', 'question_text']] = \
-        combined_df['question'].str.extract(pattern)
+    combined_df[new_columns] = \
+        combined_df[pattern_col].str.extract(pattern)
 
-    # Convert lab_number and question_number to numeric types
-    combined_df['lab_number'] = pd.to_numeric(combined_df['lab_number'])
-    combined_df['question_number'] = pd.to_numeric(combined_df['question_number'])
-
-    # Format lab_number and question_number to add leading zeros if single digit
-    combined_df['lab_number'] = combined_df['lab_number'].astype(int).astype(str).str.zfill(2)
-    combined_df['question_number'] = combined_df['question_number'].astype(int).astype(str).str.zfill(2)
+    # Convert numeric columns to numeric types and add leading zeros
+    for num_col in new_numeric_columns:
+        combined_df[num_col] = pd.to_numeric(combined_df[num_col])
+        combined_df[num_col] = combined_df[num_col].astype(int).astype(str).str.zfill(2)
 
     # Replace the 'question' column with the new formatted string
     combined_df['question'] = 'Lab ' + combined_df['lab_number'] + '-Q' + combined_df['question_number']
